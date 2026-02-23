@@ -29,6 +29,12 @@ LONGSCROLLQT_NAMESPACE_BEGIN
 class NavigatorWidget;
 struct ContentItemInfo;
 class ContentWidgetItemFactory;
+LONGSCROLLQT_NAMESPACE_END
+
+Q_DECLARE_OPAQUE_POINTER(longscroll::NavigatorWidget*)
+Q_DECLARE_OPAQUE_POINTER(longscroll::ContentWidgetItemFactory*)
+
+LONGSCROLLQT_NAMESPACE_BEGIN
 
 #ifndef CONTENTWIDGET_VARIABLE_ROW_HEIGHT
 # define CONTENTWIDGET_VARIABLE_ROW_HEIGHT 1
