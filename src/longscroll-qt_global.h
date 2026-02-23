@@ -22,11 +22,7 @@ along with longscroll-qt.  If not see <http://www.gnu.org/licenses/>.
 
 #include <QtCore/QtGlobal>
 
-#if defined(LONGSCROLLQT_LIBRARY)
-#  define LONGSCROLLQT_EXPORT Q_DECL_EXPORT
-#else
-#  define LONGSCROLLQT_EXPORT Q_DECL_IMPORT
-#endif
+#define LONGSCROLLQT_EXPORT
 
 #ifndef LONGSCROLLQT_NAMESPACE
 #  define LONGSCROLLQT_NAMESPACE       longscroll
