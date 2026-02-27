@@ -142,9 +142,9 @@ public:
 	int getCurrentItem() const;
 	void setCurrentItem(int index);
 
-	Q_PROPERTY(QList<ContentItemInfo> itemInfos READ getItemInfos WRITE setItemInfos)
-	QList<ContentItemInfo> const & getItemInfos() const;
-	void setItemInfos(QList<ContentItemInfo> const & infos);
+	Q_PROPERTY(QList<ContentItemInfo> * itemInfos READ getItemInfos WRITE setItemInfos)
+	QList<ContentItemInfo> * getItemInfos();
+	void setItemInfos(QList<ContentItemInfo> * infos);
 
 	int findRow(int itemIndex);
 	void findRowCol(int & row, int & col, int itemIndex);
