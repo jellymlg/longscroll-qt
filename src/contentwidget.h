@@ -142,12 +142,14 @@ public:
 	int getCurrentItem() const;
 	void setCurrentItem(int index);
 
-	Q_PROPERTY(QList<ContentItemInfo> * itemInfos READ getItemInfos WRITE setItemInfos)
-	QList<ContentItemInfo> * getItemInfos();
-	void setItemInfos(QList<ContentItemInfo> * infos);
+	Q_PROPERTY(QList<ContentItemInfo> itemInfos READ getItemInfos WRITE setItemInfos)
+	QList<ContentItemInfo> const & getItemInfos() const;
+	void setItemInfos(QList<ContentItemInfo> const & infos);
 
 	int findRow(int itemIndex);
 	void findRowCol(int & row, int & col, int itemIndex);
+
+	void addItemInfo(const ContentItemInfo& info);
 
 public slots:
 	void showNavigator(int itemIndex);

@@ -51,7 +51,6 @@ along with longscroll-qt.  If not see <http://www.gnu.org/licenses/>.
 //TODO: Use Qt::LayoutDirection
 
 LONGSCROLLQT_NAMESPACE_BEGIN
-
 	/*!
 	 * \class ContentWidget
 	 * \brief Longscroll-qt's central widget.
@@ -101,9 +100,8 @@ LONGSCROLLQT_NAMESPACE_BEGIN
 	 * \brief Constructs a ContentWidget.
 	 * \param parent
 	 */
-ContentWidget::ContentWidget(QWidget * parent)
-	: NotifyableScrollContentWidget(parent)
-{
+	ContentWidget::ContentWidget(QWidget* parent)
+		: NotifyableScrollContentWidget(parent) {
 		itemFactory = new ContentWidgetImageItemFactory(false);
 
 		setNavigatorWidget(new ImageNavigatorWidget(this));
@@ -122,9 +120,8 @@ ContentWidget::ContentWidget(QWidget * parent)
 	 * \param itemWidth
 	 * \param parent
 	 */
-ContentWidget::ContentWidget(int rowHeight, int itemWidth, QWidget * parent)
-    : ContentWidget(parent)
-{
+	ContentWidget::ContentWidget(int rowHeight, int itemWidth, QWidget* parent)
+		: ContentWidget(parent) {
 		setRowHeight(rowHeight);
 		setItemWidth(itemWidth);
 	}
@@ -132,8 +129,7 @@ ContentWidget::ContentWidget(int rowHeight, int itemWidth, QWidget * parent)
 	/*!
 	 * \brief Destroys the widget.
 	 */
-ContentWidget::~ContentWidget()
-{
+	ContentWidget::~ContentWidget() {
 		delete itemFactory;
 	}
 
@@ -149,16 +145,14 @@ ContentWidget::~ContentWidget()
 	/*!
 	 * \see itemFactory
 	 */
-ContentWidgetItemFactory * ContentWidget::getItemFactory()
-{
+	ContentWidgetItemFactory* ContentWidget::getItemFactory() {
 		return itemFactory;
 	}
 
 	/*!
 	 * \see itemFactory
 	 */
-void ContentWidget::setItemFactory(ContentWidgetItemFactory * factory)
-{
+	void ContentWidget::setItemFactory(ContentWidgetItemFactory* factory) {
 		delete itemFactory;
 		itemFactory = factory;
 		rebuild();
@@ -176,29 +170,25 @@ void ContentWidget::setItemFactory(ContentWidgetItemFactory * factory)
 	/*!
 	 * \see navigatorWidget
 	 */
-NavigatorWidget * ContentWidget::getNavigatorWidget()
-{
+	NavigatorWidget* ContentWidget::getNavigatorWidget() {
 		return navigator;
 	}
 
 	/*!
 	 * \see navigatorWidget
 	 */
-void ContentWidget::setNavigatorWidget(NavigatorWidget * nav)
-{
+	void ContentWidget::setNavigatorWidget(NavigatorWidget* nav) {
 		if (navigator == nav)
 			return;
 
 		bool updatesBlocked = false;
-	if (navigator != 0 && navigator->isVisible() && updatesEnabled())
-	{
+		if (navigator != 0 && navigator->isVisible() && updatesEnabled()) {
 			updatesBlocked = true;
 			setUpdatesEnabled(false);
 		}
 
 		nav->setParent(this);
-	if (navigator != 0)
-	{
+		if (navigator != 0) {
 			nav->setGeometry(navigator->geometry());
 			nav->setVisible(navigator->isVisible());
 			navigator->setVisible(false);
@@ -226,16 +216,14 @@ void ContentWidget::setNavigatorWidget(NavigatorWidget * nav)
 	/*!
 	 * \see navigatorWidget
 	 */
-int ContentWidget::getNavigatorHeight() const
-{
+	int ContentWidget::getNavigatorHeight() const {
 		return navigatorHeight;
 	}
 
 	/*!
 	 * \see navigatorWidget
 	 */
-void ContentWidget::setNavigatorHeight(int height)
-{
+	void ContentWidget::setNavigatorHeight(int height) {
 		if (height <= 0)
 			return;
 		navigatorHeight = height;
@@ -255,16 +243,14 @@ void ContentWidget::setNavigatorHeight(int height)
 	/*!
 	 * \see itemTrackingEnabled
 	 */
-bool ContentWidget::isItemTrackingEnabled() const
-{
+	bool ContentWidget::isItemTrackingEnabled() const {
 		return itemTrackingEnabled;
 	}
 
 	/*!
 	 * \see itemTrackingEnabled
 	 */
-void ContentWidget::setItemTrackingEnabled(bool enabled)
-{
+	void ContentWidget::setItemTrackingEnabled(bool enabled) {
 		if (enabled == itemTrackingEnabled)
 			return;
 		itemTrackingEnabled = enabled;
@@ -276,8 +262,7 @@ void ContentWidget::setItemTrackingEnabled(bool enabled)
 	 * \return Tracking item x-coordinate percentage
 	 * \see setItemTrackingScreenPositionPercentage
 	 */
-uchar ContentWidget::getItemTrackingScreenPositionPercentageX() const
-{
+	uchar ContentWidget::getItemTrackingScreenPositionPercentageX() const {
 		return itemTrackingX;
 	}
 
@@ -286,8 +271,7 @@ uchar ContentWidget::getItemTrackingScreenPositionPercentageX() const
 	 * \return Tracking item y-coordinate percentage
 	 * \see setItemTrackingScreenPositionPercentage
 	 */
-uchar ContentWidget::getItemTrackingScreenPositionPercentageY() const
-{
+	uchar ContentWidget::getItemTrackingScreenPositionPercentageY() const {
 		return itemTrackingY;
 	}
 
@@ -303,8 +287,7 @@ uchar ContentWidget::getItemTrackingScreenPositionPercentageY() const
 	 * \see getItemTrackingScreenPositionPercentageX
 	 * \see getItemTrackingScreenPositionPercentageY
 	 */
-void ContentWidget::setItemTrackingScreenPositionPercentage(uchar percentX, uchar percentY)
-{
+	void ContentWidget::setItemTrackingScreenPositionPercentage(uchar percentX, uchar percentY) {
 		percentX = qBound(uchar(0), percentX, uchar(100));
 		percentY = qBound(uchar(0), percentY, uchar(100));
 		if (percentX == itemTrackingX && percentY == itemTrackingY)
@@ -326,16 +309,14 @@ void ContentWidget::setItemTrackingScreenPositionPercentage(uchar percentX, ucha
 	/*!
 	 * \see prefetchRowsBefore
 	 */
-int ContentWidget::getPrefetchRowsBefore() const
-{
+	int ContentWidget::getPrefetchRowsBefore() const {
 		return prefetchBefore;
 	}
 
 	/*!
 	 * \see prefetchRowsBefore
 	 */
-void ContentWidget::setPrefetchRowsBefore(int rows)
-{
+	void ContentWidget::setPrefetchRowsBefore(int rows) {
 		prefetchBefore = rows;
 	}
 
@@ -351,16 +332,14 @@ void ContentWidget::setPrefetchRowsBefore(int rows)
 	/*!
 	 * \see prefetchRowsAfter
 	 */
-int ContentWidget::getPrefetchRowsAfter() const
-{
+	int ContentWidget::getPrefetchRowsAfter() const {
 		return prefetchAfter;
 	}
 
 	/*!
 	 * \see prefetchRowsAfter
 	 */
-void ContentWidget::setPrefetchRowsAfter(int rows)
-{
+	void ContentWidget::setPrefetchRowsAfter(int rows) {
 		prefetchAfter = rows;
 	}
 
@@ -374,16 +353,14 @@ void ContentWidget::setPrefetchRowsAfter(int rows)
 	/*!
 	 * \see horizontalSpacing
 	 */
-int ContentWidget::getHorizontalSpacing() const
-{
+	int ContentWidget::getHorizontalSpacing() const {
 		return xSpacing;
 	}
 
 	/*!
 	 * \see horizontalSpacing
 	 */
-void ContentWidget::setHorizontalSpacing(int spacing)
-{
+	void ContentWidget::setHorizontalSpacing(int spacing) {
 		xSpacing = spacing;
 		refresh();
 	}
@@ -398,16 +375,14 @@ void ContentWidget::setHorizontalSpacing(int spacing)
 	/*!
 	 * \see verticalSpacing
 	 */
-int ContentWidget::getVerticalSpacing() const
-{
+	int ContentWidget::getVerticalSpacing() const {
 		return ySpacing;
 	}
 
 	/*!
 	 * \see verticalSpacing
 	 */
-void ContentWidget::setVerticalSpacing(int spacing)
-{
+	void ContentWidget::setVerticalSpacing(int spacing) {
 		ySpacing = spacing;
 		refresh();
 	}
@@ -425,16 +400,14 @@ void ContentWidget::setVerticalSpacing(int spacing)
 	/*!
 	 * \see rowHeight
 	 */
-int ContentWidget::getRowHeight() const
-{
+	int ContentWidget::getRowHeight() const {
 		return rowHeight;
 	}
 
 	/*!
 	 * \see rowHeight
 	 */
-void ContentWidget::setRowHeight(int height)
-{
+	void ContentWidget::setRowHeight(int height) {
 		if (height <= 0)
 			return;
 		rowHeight = height;
@@ -455,16 +428,14 @@ void ContentWidget::setRowHeight(int height)
 	/*!
 	 * \see itemWidth
 	 */
-int ContentWidget::getItemWidth() const
-{
+	int ContentWidget::getItemWidth() const {
 		return itemWidth;
 	}
 
 	/*!
 	 * \see itemWidth
 	 */
-void ContentWidget::setItemWidth(int width)
-{
+	void ContentWidget::setItemWidth(int width) {
 		itemWidth = width;
 		rebuild();
 	}
@@ -485,16 +456,14 @@ void ContentWidget::setItemWidth(int width)
 	/*!
 	 * \see allowOverfill
 	 */
-bool ContentWidget::getAllowOverfill() const
-{
+	bool ContentWidget::getAllowOverfill() const {
 		return allowOverfill;
 	}
 
 	/*!
 	 * \see allowOverfill
 	 */
-void ContentWidget::setAllowOverfill(bool allow)
-{
+	void ContentWidget::setAllowOverfill(bool allow) {
 		allowOverfill = allow;
 		refresh();
 	}
@@ -514,16 +483,14 @@ void ContentWidget::setAllowOverfill(bool allow)
 	/*!
 	 * \see stretchRows
 	 */
-bool ContentWidget::getStretchRows() const
-{
+	bool ContentWidget::getStretchRows() const {
 		return align;
 	}
 
 	/*!
 	 * \see stretchRows
 	 */
-void ContentWidget::setStretchRows(bool stretch)
-{
+	void ContentWidget::setStretchRows(bool stretch) {
 		align = stretch;
 		refresh();
 	}
@@ -540,16 +507,14 @@ void ContentWidget::setStretchRows(bool stretch)
 	/*!
 	 * \see stretchLastRow
 	 */
-bool ContentWidget::getStretchLastRow() const
-{
+	bool ContentWidget::getStretchLastRow() const {
 		return alignLast;
 	}
 
 	/*!
 	 * \see stretchLastRow
 	 */
-void ContentWidget::setStretchLastRow(bool stretch)
-{
+	void ContentWidget::setStretchLastRow(bool stretch) {
 		alignLast = stretch;
 		refresh();
 	}
@@ -575,16 +540,14 @@ void ContentWidget::setStretchLastRow(bool stretch)
 	/*!
 	 * \see scaleRows
 	 */
-bool ContentWidget::getScaleRows() const
-{
+	bool ContentWidget::getScaleRows() const {
 		return scaleRows;
 	}
 
 	/*!
 	 * \see scaleRows
 	 */
-void ContentWidget::setScaleRows(bool scale)
-{
+	void ContentWidget::setScaleRows(bool scale) {
 		scaleRows = scale;
 		refresh();
 	}
@@ -604,16 +567,14 @@ void ContentWidget::setScaleRows(bool scale)
 	/*!
 	 * \see ContentWidget::handleMouseEvents
 	 */
-bool ContentWidget::getHandleMouseEvents() const
-{
+	bool ContentWidget::getHandleMouseEvents() const {
 		return handleMouseEvents;
 	}
 
 	/*!
 	 * \see ContentWidget::handleMouseEvents
 	 */
-void ContentWidget::setHandleMouseEvents(bool handle)
-{
+	void ContentWidget::setHandleMouseEvents(bool handle) {
 		handleMouseEvents = handle;
 	}
 
@@ -628,16 +589,14 @@ void ContentWidget::setHandleMouseEvents(bool handle)
 	/*!
 	 * \see ContentWidget::showNavigatorOnClick
 	 */
-bool ContentWidget::getShowNavigatorOnClick() const
-{
+	bool ContentWidget::getShowNavigatorOnClick() const {
 		return navigatorClickConnection;
 	}
 
 	/*!
 	 * \see ContentWidget::showNavigatorOnClick
 	 */
-void ContentWidget::setShowNavigatorOnClick(bool show)
-{
+	void ContentWidget::setShowNavigatorOnClick(bool show) {
 		if (bool(navigatorClickConnection) == show)
 			return;
 		if (show)
@@ -660,16 +619,14 @@ void ContentWidget::setShowNavigatorOnClick(bool show)
 	/*!
 	 * \see ContentWidget::dragEnabled
 	 */
-bool ContentWidget::isDragEnabled() const
-{
+	bool ContentWidget::isDragEnabled() const {
 		return dragEnabled;
 	}
 
 	/*!
 	 * \see ContentWidget::dragEnabled
 	 */
-void ContentWidget::setDragEnabled(bool enabled)
-{
+	void ContentWidget::setDragEnabled(bool enabled) {
 		dragEnabled = enabled;
 	}
 
@@ -690,16 +647,14 @@ void ContentWidget::setDragEnabled(bool enabled)
 	/*!
 	 * \see ContentWidget::selectionMode
 	 */
-QAbstractItemView::SelectionMode ContentWidget::getSelectionMode() const
-{
+	QAbstractItemView::SelectionMode ContentWidget::getSelectionMode() const {
 		return selectionMode;
 	}
 
 	/*!
 	 * \see ContentWidget::selectionMode
 	 */
-void ContentWidget::setSelectionMode(QAbstractItemView::SelectionMode mode)
-{
+	void ContentWidget::setSelectionMode(QAbstractItemView::SelectionMode mode) {
 		selectionMode = mode;
 		if (mode == QAbstractItemView::NoSelection)
 			setSelectedItems(QList<int>());
@@ -714,16 +669,14 @@ void ContentWidget::setSelectionMode(QAbstractItemView::SelectionMode mode)
 	/*!
 	 * \see ContentWidget::selectedItems
 	 */
-QList<int> ContentWidget::getSelectedItems() const
-{
+	QList<int> ContentWidget::getSelectedItems() const {
 		return selection;
 	}
 
 	/*!
 	 * \see ContentWidget::selectedItems
 	 */
-void ContentWidget::setSelectedItems(QList<int> const & indexes)
-{
+	void ContentWidget::setSelectedItems(QList<int> const& indexes) {
 		if (indexes == selection)
 			return;
 		QList<int> oldSelection = indexes;
@@ -740,16 +693,14 @@ void ContentWidget::setSelectedItems(QList<int> const & indexes)
 	/*!
 	 * \see ContentWidget::currentItem
 	 */
-int ContentWidget::getCurrentItem() const
-{
+	int ContentWidget::getCurrentItem() const {
 		return currentItemIndex;
 	}
 
 	/*!
 	 * \see ContentWidget::currentItem
 	 */
-void ContentWidget::setCurrentItem(int index)
-{
+	void ContentWidget::setCurrentItem(int index) {
 		if (index == currentItemIndex)
 			return;
 		int oldItemindex = currentItemIndex;
@@ -766,22 +717,21 @@ void ContentWidget::setCurrentItem(int index)
 	/*!
 	 * \see itemInfos
 	 */
-	QList<ContentItemInfo>* ContentWidget::getItemInfos()
-	{
-		return &itemInfos;
+	const QList<ContentItemInfo>& ContentWidget::getItemInfos() const {
+		return itemInfos;
 	}
 
 	/*!
 	 * \see itemInfos
 	 */
-	void ContentWidget::setItemInfos(QList<ContentItemInfo>* infos) {
+	void ContentWidget::setItemInfos(const QList<ContentItemInfo>& infos) {
 #if CONTENTWIDGET_MEASURE_SETINFOS
 		QElapsedTimer t;
 		t.start();
 #endif
 
 		hideNavigator();
-		itemInfos = *infos;
+		itemInfos = infos;
 		int const size = itemInfos.size();
 		itemWidths.clear();
 		itemWidths.reserve(size);
@@ -791,18 +741,13 @@ void ContentWidget::setCurrentItem(int index)
 		rowWidgets.clear();
 		rowInfos.clear();
 		trackingItemIndex = -1;
-		if (itemWidth == 0)
-		{
-			for (ContentItemInfo const& img: *infos)
+		if (itemWidth == 0) {
+			for (ContentItemInfo const& img : infos)
 				itemWidths.append(img.widthForHeight(rowHeight));
-	}
-	else if (itemWidth < 0)
-	{
+		} else if (itemWidth < 0) {
 			for (int i = 0; i < size; ++i)
-			itemWidths.append( std::numeric_limits<decltype(itemWidth)>::max() / 4 );	// big value, but also leave some room for calculations.
-	}
-	else
-	{
+				itemWidths.append(std::numeric_limits<decltype(itemWidth)>::max() / 4); // big value, but also leave some room for calculations.
+		} else {
 			for (int i = 0; i < size; ++i)
 				itemWidths.append(itemWidth);
 		}
@@ -824,9 +769,8 @@ void ContentWidget::setCurrentItem(int index)
 	 * \see itemInfos
 	 * \see findRowCol
 	 */
-int ContentWidget::findRow(int itemIndex)
-{
-	int const row = std::lower_bound(rowInfos.begin(), rowInfos.end(), itemIndex, [](RowInfo const & ri, int index){ return ri.items.last().index < index; }) - rowInfos.begin();
+	int ContentWidget::findRow(int itemIndex) {
+		int const row = std::lower_bound(rowInfos.begin(), rowInfos.end(), itemIndex, [](RowInfo const& ri, int index) { return ri.items.last().index < index; }) - rowInfos.begin();
 		Q_ASSERT(rowInfos[row].items.first().index <= itemIndex);
 		Q_ASSERT(rowInfos[row].items.last().index >= itemIndex);
 		return row;
@@ -842,11 +786,23 @@ int ContentWidget::findRow(int itemIndex)
 	 * \see itemInfos
 	 * \see findRow
 	 */
-void ContentWidget::findRowCol(int & row, int & col, int itemIndex)
-{
+	void ContentWidget::findRowCol(int& row, int& col, int itemIndex) {
 		row = findRow(itemIndex);
 		col = itemIndex - rowInfos[row].items.first().index;
 		Q_ASSERT(rowInfos[row].items[col].index == itemIndex);
+	}
+
+	void ContentWidget::addItemInfo(const ContentItemInfo& info) {
+		itemInfos.append(info);
+		itemWidgets.fill(nullptr, itemInfos.size());
+		if (itemWidth == 0) {
+			itemWidths.append(info.widthForHeight(rowHeight));
+		} else if (itemWidth < 0) {
+			itemWidths.append(std::numeric_limits<decltype(itemWidth)>::max() / 4);
+		} else {
+			itemWidths.append(itemWidth);
+		}
+		refresh();
 	}
 
 	/*!
@@ -856,8 +812,7 @@ void ContentWidget::findRowCol(int & row, int & col, int itemIndex)
 	 * \see itemInfos
 	 * \see findRowCol
 	 */
-void ContentWidget::showNavigator(int itemIndex)
-{
+	void ContentWidget::showNavigator(int itemIndex) {
 		int row, col;
 		findRowCol(row, col, itemIndex);
 		showNavigator(row, col);
@@ -869,24 +824,21 @@ void ContentWidget::showNavigator(int itemIndex)
 	 * \param row
 	 * \param col
 	 */
-void ContentWidget::showNavigator(int row, int col)
-{
+	void ContentWidget::showNavigator(int row, int col) {
 		showNavigator(row, col, true);
 	}
 
 	/*!
 	 * \reimp{NotifyableScrollContentWidget::sizeHint}
 	 */
-QSize ContentWidget::sizeHint() const
-{
+	QSize ContentWidget::sizeHint() const {
 		return size;
 	}
 
 	/*!
 	 * \reimp{NotifyableScrollContentWidget::showingRect}
 	 */
-void ContentWidget::showingRect(const QRect & rect)
-{
+	void ContentWidget::showingRect(const QRect& rect) {
 #if CONTENTWIDGET_MEASURE_SHOWINGRECT
 		static quint64 tSum = 0;
 		static quint64 tCount = 0;
@@ -901,10 +853,8 @@ void ContentWidget::showingRect(const QRect & rect)
 
 		setUpdatesEnabled(false);
 
-		if (rect.width() != visibleRect.width())
-		{
-			if (itemTrackingEnabled)
-			{
+		if (rect.width() != visibleRect.width()) {
+			if (itemTrackingEnabled) {
 				if (trackingItemIndex < 0)
 					updateTrackingItem();
 				else
@@ -924,15 +874,13 @@ void ContentWidget::showingRect(const QRect & rect)
 #endif
 
 			// changed == true implies itemTrackingEnabled == true
-		if (changed && trackingItemIndex >= 0)
-		{
+			if (changed && trackingItemIndex >= 0) {
 				int const r = findRow(trackingItemIndex);
 				blockScroll = true;
 				emit scrollToRequest(rowInfos[r].y + trackingItemOffset - (trackingPoint.y() - rect.y()));
 				blockScroll = false;
 			}
-	}
-	else
+		} else
 			visibleRect = rect;
 
 		if (rect.width() <= 0)
@@ -968,9 +916,8 @@ void ContentWidget::showingRect(const QRect & rect)
 	 * \see prefetchBefore
 	 * \see prefetchAfter
 	 */
-QWidget *ContentWidget::createItemWidget(const ContentItemInfo & info, int itemIndex)
-{
-	QWidget * widget = itemFactory->createItemWidget(info, itemIndex, this);
+	QWidget* ContentWidget::createItemWidget(const ContentItemInfo& info, int itemIndex) {
+		QWidget* widget = itemFactory->createItemWidget(info, itemIndex, this);
 #if CONTENTWIDGET_DEMO_STYLESHEETS
 		widget->setStyleSheet("QWidget{ background: blue; } QLabel { background: red; }");
 #endif
@@ -985,35 +932,29 @@ QWidget *ContentWidget::createItemWidget(const ContentItemInfo & info, int itemI
 	 * \param onNavigator Returns if y is on the navigator widget.
 	 * \return Row index.
 	 */
-int ContentWidget::rowAt(int y, bool * onNavigator)
-{
+	int ContentWidget::rowAt(int y, bool* onNavigator) {
 		if (onNavigator != 0)
 			*onNavigator = false;
 		int row = y / (rowHeight + ySpacing);
 #if CONTENTWIDGET_VARIABLE_ROW_HEIGHT
-	if (scaleRows)
-	{
+		if (scaleRows) {
 			int const size = rowInfos.size();
 			while (row < size && rowInfos[row].y < y)
 				row++;
 			while (row >= size || rowInfos[row].y > y)
 				row--;
 
-		if (onNavigator != 0)
-		{
-			RowInfo const & rowInfo = rowInfos[row];
+			if (onNavigator != 0) {
+				RowInfo const& rowInfo = rowInfos[row];
 				if (y > rowInfo.y + rowInfo.height)
 					*onNavigator = true;
 			}
-	}
-	else
+		} else
 #endif
 		{
-		if (navigatorVisible && row > navigatorRow)
-		{
+			if (navigatorVisible && row > navigatorRow) {
 				row = (y - navigatorHeight - ySpacing) / (rowHeight + ySpacing);
-			if (row <= navigatorRow)
-			{
+				if (row <= navigatorRow) {
 					if (onNavigator != 0)
 						*onNavigator = true;
 					row = navigatorRow;
@@ -1027,8 +968,7 @@ int ContentWidget::rowAt(int y, bool * onNavigator)
 	 * \overloaded
 	 * \see colAt(int x, const ContentWidget::RowInfo & row)
 	 */
-int ContentWidget::colAt(int x, int row)
-{
+	int ContentWidget::colAt(int x, int row) {
 		return colAt(x, rowInfos.at(row));
 	}
 
@@ -1040,8 +980,7 @@ int ContentWidget::colAt(int x, int row)
 	 * \return Column.
 	 * \see rowAt
 	 */
-int ContentWidget::colAt(int x, const ContentWidget::RowInfo & row)
-{
+	int ContentWidget::colAt(int x, const ContentWidget::RowInfo& row) {
 		for (int i = row.items.length() - 1; i >= 0; --i)
 			if (row.items.at(i).x <= x)
 				return i;
@@ -1054,15 +993,13 @@ int ContentWidget::colAt(int x, const ContentWidget::RowInfo & row)
 	 * \param row Row.
 	 * \param col Column.
 	 */
-void ContentWidget::nextImage(int & row, int & col)
-{
-	RowInfo const & rowInfo = rowInfos.at(row);
+	void ContentWidget::nextImage(int& row, int& col) {
+		RowInfo const& rowInfo = rowInfos.at(row);
 		++col;
 		if (col < rowInfo.items.size())
 			return;
 		++row;
-	if (row < rowInfos.size())
-	{
+		if (row < rowInfos.size()) {
 			col = 0;
 			return;
 		}
@@ -1076,15 +1013,13 @@ void ContentWidget::nextImage(int & row, int & col)
 	 * \param row Row.
 	 * \param col Column.
 	 */
-void ContentWidget::previousImage(int & row, int & col)
-{
+	void ContentWidget::previousImage(int& row, int& col) {
 		--col;
 		if (col >= 0)
 			return;
 		--row;
-	if (row >= 0)
-	{
-		RowInfo const & prevRow = rowInfos.at(row);
+		if (row >= 0) {
+			RowInfo const& prevRow = rowInfos.at(row);
 			col = prevRow.items.size() - 1;
 			return;
 		}
@@ -1095,10 +1030,8 @@ void ContentWidget::previousImage(int & row, int & col)
 	/*!
 	 * \reimp{NotifyableScrollContentWidget::mousePressEvent}
 	 */
-void ContentWidget::mousePressEvent(QMouseEvent * event)
-{
-	if (!handleMouseEvents)
-	{
+	void ContentWidget::mousePressEvent(QMouseEvent* event) {
+		if (!handleMouseEvents) {
 			event->ignore();
 			return;
 		}
@@ -1110,27 +1043,23 @@ void ContentWidget::mousePressEvent(QMouseEvent * event)
 
 		bool onNavigator;
 		int row = rowAt(event->y(), &onNavigator);
-		if (onNavigator || row >= rowInfos.size())
-		{
+		if (onNavigator || row >= rowInfos.size()) {
 			mouseState = -1;
 			return;
 		}
 
 		int col = colAt(event->x(), row);
 		mouseState = 1;
-	ItemInfo * item = &rowInfos[row].items[col];
+		ItemInfo* item = &rowInfos[row].items[col];
 
-	if (event->buttons() == Qt::LeftButton)
-	{
+		if (event->buttons() == Qt::LeftButton) {
 			mousePressPoint = event->pos();
 			mousePressRow = row;
 			mousePressCol = col;
 			mousePressItem = item;
 
 			updateSelection(item->index, false, event->modifiers() & Qt::ControlModifier, event->modifiers() & Qt::ShiftModifier);
-	}
-	else
-	{
+		} else {
 			mousePressPoint = QPoint(-1, -1);
 			mousePressRow = -1;
 			mousePressCol = -1;
@@ -1143,34 +1072,27 @@ void ContentWidget::mousePressEvent(QMouseEvent * event)
 	/*!
 	 * \reimp{NotifyableScrollContentWidget::mouseMoveEvent}
 	 */
-void ContentWidget::mouseMoveEvent(QMouseEvent * event)
-{
-	if (!handleMouseEvents)
-	{
+	void ContentWidget::mouseMoveEvent(QMouseEvent* event) {
+		if (!handleMouseEvents) {
 			event->ignore();
 			return;
 		}
 		event->accept();
-	if (event->buttons() == Qt::LeftButton && !itemInfos.isEmpty())
-	{
-		if (dragEnabled)
-		{
+		if (event->buttons() == Qt::LeftButton && !itemInfos.isEmpty()) {
+			if (dragEnabled) {
 				if (mouseState == 1
-			        && (mousePressPoint - event->pos()).manhattanLength() >= QApplication::startDragDistance())
-			{
+					&& (mousePressPoint - event->pos()).manhattanLength() >= QApplication::startDragDistance()) {
 					mouseState = 2;
 					startDrag(mousePressRow, mousePressCol, mousePressItem->index);
 				}
-		}
-		else
-		{
+			} else {
 				bool onNavigator;
 				int row = rowAt(event->y(), &onNavigator);
 				if (onNavigator || row >= rowInfos.size())
 					return;
 
 				int col = colAt(event->x(), row);
-			ItemInfo * item = &rowInfos[row].items[col];
+				ItemInfo* item = &rowInfos[row].items[col];
 
 				updateSelection(item->index, true, event->modifiers() & Qt::ControlModifier, event->modifiers() & Qt::ShiftModifier);
 			}
@@ -1180,10 +1102,8 @@ void ContentWidget::mouseMoveEvent(QMouseEvent * event)
 	/*!
 	 * \reimp{NotifyableScrollContentWidget::mouseReleaseEvent}
 	 */
-void ContentWidget::mouseReleaseEvent(QMouseEvent * event)
-{
-	if (!handleMouseEvents)
-	{
+	void ContentWidget::mouseReleaseEvent(QMouseEvent* event) {
+		if (!handleMouseEvents) {
 			event->ignore();
 			return;
 		}
@@ -1195,25 +1115,23 @@ void ContentWidget::mouseReleaseEvent(QMouseEvent * event)
 
 		bool onNavigator;
 		int row = rowAt(event->y(), &onNavigator);
-		if (onNavigator || row >= rowInfos.size())
-		{
+		if (onNavigator || row >= rowInfos.size()) {
 			mouseState = -1;
 			return;
 		}
 		int col = colAt(event->x(), row);
-	ItemInfo * item = &rowInfos[row].items[col];
+		ItemInfo* item = &rowInfos[row].items[col];
 		emit itemReleased(row, col, item->index);
 
 		if (event->buttons() == Qt::NoButton && mouseState == 1 &&
-		    row == mousePressRow && col == mousePressCol && item == mousePressItem)
+			row == mousePressRow && col == mousePressCol && item == mousePressItem)
 			emit itemClicked(row, col, item->index);
 	}
 
 	/*!
 	 * \reimp{NotifyableScrollContentWidget::mouseDoubleClickEvent}
 	 */
-void ContentWidget::mouseDoubleClickEvent(QMouseEvent * event)
-{
+	void ContentWidget::mouseDoubleClickEvent(QMouseEvent* event) {
 		event->accept();
 		mouseState = -2;
 
@@ -1236,32 +1154,30 @@ void ContentWidget::mouseDoubleClickEvent(QMouseEvent * event)
 	 * The default implementation does nothing.
 	 * \see dragEnabled
 	 */
-void ContentWidget::startDrag(int /*row*/, int /*col*/, int /*itemIndex*/)
-{
+	void ContentWidget::startDrag(int /*row*/, int /*col*/, int /*itemIndex*/) {
 	}
 
-void ContentWidget::refresh()
-{
+	void ContentWidget::refresh() {
 		QRect r = visibleRect;
+		if (r.isEmpty() && parentWidget()) {
+			r = QRect(QPoint(0, 0), parentWidget()->size());
+		}
 		visibleRect = QRect();
 		showingRect(r);
 	}
 
-	void ContentWidget::rebuild()
-	{
-		setItemInfos(&itemInfos);
+	void ContentWidget::rebuild() {
+		setItemInfos(itemInfos);
 	}
 
-bool ContentWidget::calculateSize(const bool calculateChanges)
-{
+	bool ContentWidget::calculateSize(const bool calculateChanges) {
 		QList<RowInfo> rowInfosNew;
 		rowInfosNew.reserve(rowInfos.size());
 		RowInfo row;
 		int rowWidth = 0;
 		int y = 0;
 		int navRow = -1, navCol = -1;
-	for (int i = 0, l = itemInfos.size(); i < l; ++i)
-	{
+		for (int i = 0, l = itemInfos.size(); i < l; ++i) {
 			int width = itemWidths[i];
 
 			ItemInfo item;
@@ -1269,27 +1185,21 @@ bool ContentWidget::calculateSize(const bool calculateChanges)
 			item.item = &itemInfos[i];
 			item.width = width;
 
-		if (navigatorVisible && navigatorImg == item.item)
-		{
+			if (navigatorVisible && navigatorImg == item.item) {
 				navRow = rowInfosNew.size();
 				navCol = row.items.size();
 			}
 
-		if (rowWidth == 0)
-		{
+			if (rowWidth == 0) {
 				item.x = 0;
 				row.items.append(item);
 				rowWidth += width;
-		}
-		else if(rowWidth + width + xSpacing <= visibleRect.width())
-		{
+			} else if (rowWidth + width + xSpacing <= visibleRect.width()) {
 				item.x = rowWidth + xSpacing;
 				row.items.append(item);
 				rowWidth += width + xSpacing;
-		}
-		else
-		{
-			if (allowOverfill && ( ((rowWidth + width + xSpacing) - visibleRect.width()) < (visibleRect.width() - rowWidth) ))	//overfill
+			} else {
+				if (allowOverfill && (((rowWidth + width + xSpacing) - visibleRect.width()) < (visibleRect.width() - rowWidth))) //overfill
 				{
 					item.x = rowWidth + xSpacing;
 					row.items.append(item);
@@ -1306,8 +1216,7 @@ bool ContentWidget::calculateSize(const bool calculateChanges)
 					row = RowInfo();
 					row.y = y;
 					rowWidth = 0;
-			}
-			else	//underfill
+				} else //underfill
 				{
 					row.aligned = !align;
 #if CONTENTWIDGET_VARIABLE_ROW_HEIGHT
@@ -1326,22 +1235,19 @@ bool ContentWidget::calculateSize(const bool calculateChanges)
 					row.items.append(item);
 					rowWidth = width;
 
-				if (navigatorVisible && navigatorImg == item.item)
-				{
+					if (navigatorVisible && navigatorImg == item.item) {
 						++navRow;
 						navCol = 0;
 					}
 				}
-			if (navigatorVisible && rowInfosNew.size()-1 == navRow)
-			{
+				if (navigatorVisible && rowInfosNew.size() - 1 == navRow) {
 					y += navigatorHeight + ySpacing;
 					row.y += navigatorHeight + ySpacing;
 				}
 			}
 		}
 		size.setWidth(visibleRect.width());
-	if (!row.items.isEmpty())
-	{
+		if (!row.items.isEmpty()) {
 			row.aligned = !alignLast;
 #if CONTENTWIDGET_VARIABLE_ROW_HEIGHT
 			row.height = rowHeight;
@@ -1352,9 +1258,7 @@ bool ContentWidget::calculateSize(const bool calculateChanges)
 			size.setHeight(y + rowHeight);
 #endif
 			rowInfosNew.append(row);
-	}
-	else
-	{
+		} else {
 			size.setHeight(qMax(0, y - ySpacing));
 		}
 		setMinimumSize(size);
@@ -1362,19 +1266,16 @@ bool ContentWidget::calculateSize(const bool calculateChanges)
 
 		int const is = rowInfosNew.size();
 		int const ws = rowWidgets.size();
-	for (int i = 0, l = qMin(ws, is); i < l; ++i)
-	{
+		for (int i = 0, l = qMin(ws, is); i < l; ++i) {
 			if (rowWidgets[i] == 0)
 				continue;
-		QList<ItemInfo> const & items1 = rowInfos[i].items;
-		QList<ItemInfo> const & items2 = rowInfosNew[i].items;
-		if (items1 != items2)
-		{
-			QWidget *& rowWidget = rowWidgets[i];
-			QObjectList children = rowWidget->children();	//copy list
-			for (QObject * o : children)
-			{
-				QWidget * w = static_cast<QWidget *>(o);
+			QList<ItemInfo> const& items1 = rowInfos[i].items;
+			QList<ItemInfo> const& items2 = rowInfosNew[i].items;
+			if (items1 != items2) {
+				QWidget*& rowWidget = rowWidgets[i];
+				QObjectList children = rowWidget->children(); //copy list
+				for (QObject* o : children) {
+					QWidget* w = static_cast<QWidget*>(o);
 					w->setVisible(false);
 					w->setParent(this);
 				}
@@ -1382,15 +1283,13 @@ bool ContentWidget::calculateSize(const bool calculateChanges)
 				rowWidget = 0;
 			}
 		}
-	for (int i = is; i < ws; ++i)
-	{
-		QWidget *& rowWidget = rowWidgets[i];
+		for (int i = is; i < ws; ++i) {
+			QWidget*& rowWidget = rowWidgets[i];
 			if (rowWidget == 0)
 				continue;
-		QObjectList children = rowWidget->children();	//copy list
-		for (QObject * o : children)
-		{
-			QWidget * w = static_cast<QWidget *>(o);
+			QObjectList children = rowWidget->children(); //copy list
+			for (QObject* o : children) {
+				QWidget* w = static_cast<QWidget*>(o);
 				w->setVisible(false);
 				w->setParent(this);
 			}
@@ -1410,31 +1309,27 @@ bool ContentWidget::calculateSize(const bool calculateChanges)
 			return false;
 	}
 
-void ContentWidget::updateRows()
-{
+	void ContentWidget::updateRows() {
 		int bottom = visibleRect.bottom();
 		if (navigatorVisible)
 			bottom += navigatorHeight;
-	int lastRow = qMin(rowInfos.length() - 1, rowAt(bottom)  +  prefetchAfter);
-	int firstRow = qBound(0, rowAt(visibleRect.y())  -  prefetchBefore, lastRow);
+		int lastRow = qMin(rowInfos.length() - 1, rowAt(bottom) + prefetchAfter);
+		int firstRow = qBound(0, rowAt(visibleRect.y()) - prefetchBefore, lastRow);
 
-	for (int i = 0; i < firstRow; i++)
-	{
-		RowInfo & row = rowInfos[i];
+		for (int i = 0; i < firstRow; i++) {
+			RowInfo& row = rowInfos[i];
 			if (row.displaying)
 				hideRow(i);
 			row.displaying = false;
 		}
-	for (int i = lastRow + 1, l = rowInfos.size(); i < l; i++)
-	{
-		RowInfo & row = rowInfos[i];
+		for (int i = lastRow + 1, l = rowInfos.size(); i < l; i++) {
+			RowInfo& row = rowInfos[i];
 			if (row.displaying)
 				hideRow(i);
 			row.displaying = false;
 		}
-	for (int i = firstRow; i <= lastRow; i++)
-	{
-		RowInfo & row = rowInfos[i];
+		for (int i = firstRow; i <= lastRow; i++) {
+			RowInfo& row = rowInfos[i];
 			if (row.displaying)
 				continue;
 			row.displaying = true;
@@ -1445,10 +1340,9 @@ void ContentWidget::updateRows()
 	}
 
 #if CONTENTWIDGET_VARIABLE_ROW_HEIGHT
-template<bool scale>
+	template <bool scale>
 #endif
-void ContentWidget::alignRow(ContentWidget::RowInfo & row)
-{
+	void ContentWidget::alignRow(ContentWidget::RowInfo& row) {
 		int const n = row.items.size();
 		double const width = double(visibleRect.width() - xSpacing * (row.items.size() - 1));
 		int sumWidth = 0;
@@ -1459,9 +1353,8 @@ void ContentWidget::alignRow(ContentWidget::RowInfo & row)
 		double const r = double(width) / double(sumWidth);
 		double x = 0;
 		int ix = 0;
-	for (int i = 0; i < n; ++i)
-	{
-		ItemInfo & item = row.items[i];
+		for (int i = 0; i < n; ++i) {
+			ItemInfo& item = row.items[i];
 			double w = double(row.items[i].width) * r;
 			item.x = ix;
 			item.width = qRound(w + (x - ix));
@@ -1472,54 +1365,43 @@ void ContentWidget::alignRow(ContentWidget::RowInfo & row)
 		if (scale)
 			row.height = qRound(row.height * r);
 #endif
-	Q_ASSERT( (ix - xSpacing) == visibleRect.width() );
+		Q_ASSERT((ix - xSpacing) == visibleRect.width());
 		row.aligned = true;
 	}
 
-void ContentWidget::hideRow(int i)
-{
-	if (rowWidgets[i] != 0)
-	{
-		for (ItemInfo const & info : rowInfos[i].items)
+	void ContentWidget::hideRow(int i) {
+		if (rowWidgets[i] != 0) {
+			for (ItemInfo const& info : rowInfos[i].items)
 				itemWidgets[info.index] = 0;
 			delete rowWidgets[i];
 			rowWidgets[i] = 0;
 		}
 	}
 
-void ContentWidget::showRow(const ContentWidget::RowInfo & rowInfo, int rowIndex)
-{
-	QWidget * rowWidget = rowWidgets[rowIndex];
+	void ContentWidget::showRow(const ContentWidget::RowInfo& rowInfo, int rowIndex) {
+		QWidget* rowWidget = rowWidgets[rowIndex];
 		bool updateOnly = true;
-	if (rowWidget == 0)
-	{
+		if (rowWidget == 0) {
 			updateOnly = false;
 			rowWidget = new QWidget(this);
 			rowWidgets[rowIndex] = rowWidget;
 		}
 #if CONTENTWIDGET_VARIABLE_ROW_HEIGHT
-	int const & rowH = rowInfo.height;
+		int const& rowH = rowInfo.height;
 #else
-	int const & rowH = rowHeight;
+		int const& rowH = rowHeight;
 #endif
 		rowWidget->setGeometry(0, rowInfo.y, visibleRect.width(), rowH);
 
-	for (int i = 0; i < rowInfo.items.size(); ++i)
-	{
-		ItemInfo const & item = rowInfo.items[i];
-		QWidget * itemWidget;
-		if (updateOnly)
-		{
-			itemWidget = static_cast<QWidget *>(rowWidget->children().at(i));
-		}
-		else
-		{
-			if (itemWidgets[item.index] != 0)
-			{
+		for (int i = 0; i < rowInfo.items.size(); ++i) {
+			ItemInfo const& item = rowInfo.items[i];
+			QWidget* itemWidget;
+			if (updateOnly) {
+				itemWidget = static_cast<QWidget*>(rowWidget->children().at(i));
+			} else {
+				if (itemWidgets[item.index] != 0) {
 					itemWidget = itemWidgets[item.index];
-			}
-			else
-			{
+				} else {
 					itemWidget = createItemWidget(*item.item, item.index);
 					itemWidgets[item.index] = itemWidget;
 #if CONTENTWIDGET_DEBUG_VISUALIZE_TRACKINGITEM
@@ -1535,42 +1417,32 @@ void ContentWidget::showRow(const ContentWidget::RowInfo & rowInfo, int rowIndex
 		rowWidget->setVisible(true);
 	}
 
-void ContentWidget::updateSelection(int itemIndex, bool dragging, bool controlPressed, bool shiftPressed)
-{
+	void ContentWidget::updateSelection(int itemIndex, bool dragging, bool controlPressed, bool shiftPressed) {
 		if (selectionMode == QAbstractItemView::NoSelection)
 			return;
 		QList<int> newSelection;
 		int newCurrentItemIndex = currentItemIndex;
 
-	switch (selectionMode)
-	{
+		switch (selectionMode) {
 			case QAbstractItemView::NoSelection:
 				break;
 			case QAbstractItemView::SingleSelection:
 				newSelection.append(itemIndex);
 				newCurrentItemIndex = itemIndex;
 				break;
-		case QAbstractItemView::ExtendedSelection:
-		{
-			if (!controlPressed)
-			{
-				if (dragging || shiftPressed)
-				{
+			case QAbstractItemView::ExtendedSelection: {
+				if (!controlPressed) {
+					if (dragging || shiftPressed) {
 						Q_ASSERT(newCurrentItemIndex != -1);
 						Q_ASSERT(!selection.isEmpty());
-					if (itemIndex > newCurrentItemIndex)
-					{
+						if (itemIndex > newCurrentItemIndex) {
 							for (int i = newCurrentItemIndex; i <= itemIndex; ++i)
 								newSelection.append(i);
-						}
-else
-{
+						} else {
 							for (int i = newCurrentItemIndex; i >= itemIndex; --i)
 								newSelection.append(i);
 						}
-				}
-				else
-				{
+					} else {
 						newSelection.append(itemIndex);
 						newCurrentItemIndex = itemIndex;
 					}
@@ -1581,21 +1453,17 @@ else
 			case QAbstractItemView::MultiSelection:
 				newCurrentItemIndex = itemIndex;
 				newSelection = selection;
-			if (dragging)
-			{
+				if (dragging) {
 					Q_ASSERT(dragStartItemIndex != -1);
 					newSelection = dragStartSelection;
 					bool select = newSelection.contains(dragStartItemIndex);
-				for (int i = qMin(dragStartItemIndex, itemIndex); i <= qMax(dragStartItemIndex, itemIndex); ++i)
-				{
+					for (int i = qMin(dragStartItemIndex, itemIndex); i <= qMax(dragStartItemIndex, itemIndex); ++i) {
 						if (!select)
 							newSelection.removeOne(i);
 						else if (!newSelection.contains(i))
 							newSelection.append(i);
 					}
-			}
-			else
-			{
+				} else {
 					if (newSelection.contains(itemIndex))
 						newSelection.removeOne(itemIndex);
 					else
@@ -1606,24 +1474,18 @@ else
 				newCurrentItemIndex = itemIndex;
 				break;
 			case QAbstractItemView::ContiguousSelection:
-			if (dragging || controlPressed || shiftPressed)
-			{
+				if (dragging || controlPressed || shiftPressed) {
 					Q_ASSERT(newCurrentItemIndex != -1);
 					Q_ASSERT(!selection.isEmpty());
 					Q_ASSERT(selection.first() == newCurrentItemIndex);
-				if (itemIndex > newCurrentItemIndex)
-				{
+					if (itemIndex > newCurrentItemIndex) {
 						for (int i = newCurrentItemIndex; i <= itemIndex; ++i)
 							newSelection.append(i);
-				}
-				else
-				{
+					} else {
 						for (int i = newCurrentItemIndex; i >= itemIndex; --i)
 							newSelection.append(i);
 					}
-			}
-			else
-			{
+				} else {
 					newCurrentItemIndex = itemIndex;
 					newSelection.append(itemIndex);
 				}
@@ -1634,8 +1496,7 @@ else
 		setCurrentItem(newCurrentItemIndex);
 	}
 
-void ContentWidget::showNavigator(const int row, const int col, const bool blockUpdates)
-{
+	void ContentWidget::showNavigator(const int row, const int col, const bool blockUpdates) {
 		if (navigatorVisible && navigatorRow == row && navigatorColumn == col)
 			return;
 
@@ -1643,25 +1504,19 @@ void ContentWidget::showNavigator(const int row, const int col, const bool block
 			setUpdatesEnabled(false);
 
 		bool needsTrackingUpdate = itemTrackingEnabled && !navigatorVisible;
-	if (navigatorVisible)
-	{
-		for (int i = navigatorRow+1; i <= row; ++i)
-		{
+		if (navigatorVisible) {
+			for (int i = navigatorRow + 1; i <= row; ++i) {
 				rowInfos[i].y -= navigatorHeight + ySpacing;
 				if (rowWidgets[i] != 0)
 					rowWidgets[i]->move(0, rowInfos[i].y);
 			}
-		for (int i = row+1; i <= navigatorRow; ++i)
-		{
+			for (int i = row + 1; i <= navigatorRow; ++i) {
 				rowInfos[i].y += navigatorHeight + ySpacing;
 				if (rowWidgets[i] != 0)
 					rowWidgets[i]->move(0, rowInfos[i].y);
 			}
-	}
-	else
-	{
-		for (int i = row+1; i < rowInfos.size(); ++i)
-		{
+		} else {
+			for (int i = row + 1; i < rowInfos.size(); ++i) {
 				rowInfos[i].y += navigatorHeight + ySpacing;
 				if (rowWidgets[i] != 0)
 					rowWidgets[i]->move(0, rowInfos[i].y);
@@ -1684,23 +1539,21 @@ void ContentWidget::showNavigator(const int row, const int col, const bool block
 			setUpdatesEnabled(true);
 	}
 
-void ContentWidget::updateNavigator(const int row, const int col)
-{
+	void ContentWidget::updateNavigator(const int row, const int col) {
 		navigatorRow = row;
 		navigatorColumn = col;
 
-	RowInfo const & rowInfo = rowInfos.at(row);
+		RowInfo const& rowInfo = rowInfos.at(row);
 #if CONTENTWIDGET_VARIABLE_ROW_HEIGHT
-	int const & rowH = rowInfo.height;
+		int const& rowH = rowInfo.height;
 #else
-	int const & rowH = rowHeight;
+		int const& rowH = rowHeight;
 #endif
 		int const y = rowInfo.y + rowH + ySpacing;
 		navigator->setGeometry(0, y, visibleRect.width(), navigatorHeight);
 	}
 
-void ContentWidget::navigatorPrevNext(bool next)
-{
+	void ContentWidget::navigatorPrevNext(bool next) {
 		int row = navigatorRow;
 		int col = navigatorColumn;
 		if (next)
@@ -1712,23 +1565,20 @@ void ContentWidget::navigatorPrevNext(bool next)
 
 		int oldNaviY = navigator->y();
 		showNavigator(row, col);
-	if (navigator->y() != oldNaviY)
-	{
+		if (navigator->y() != oldNaviY) {
 			blockScroll = true;
-		emit scrollToRequest( visibleRect.top() + (navigator->y() - oldNaviY) );
+			emit scrollToRequest(visibleRect.top() + (navigator->y() - oldNaviY));
 			blockScroll = false;
 		}
 	}
 
-void ContentWidget::hideNavigator()
-{
+	void ContentWidget::hideNavigator() {
 		if (!navigatorVisible)
 			return;
 
 		setUpdatesEnabled(false);
 
-	for (int i = navigatorRow+1; i < rowInfos.size(); ++i)
-	{
+		for (int i = navigatorRow + 1; i < rowInfos.size(); ++i) {
 			rowInfos[i].y -= navigatorHeight + ySpacing;
 			if (rowWidgets[i] != 0)
 				rowWidgets[i]->move(0, rowInfos[i].y);
@@ -1743,33 +1593,27 @@ void ContentWidget::hideNavigator()
 		setUpdatesEnabled(true);
 	}
 
-void ContentWidget::navigatorNext()
-{
+	void ContentWidget::navigatorNext() {
 		navigatorPrevNext(true);
 	}
 
-void ContentWidget::navigatorPrev()
-{
+	void ContentWidget::navigatorPrev() {
 		navigatorPrevNext(false);
 	}
 
-void ContentWidget::updateTrackingItem()
-{
+	void ContentWidget::updateTrackingItem() {
 #if CONTENTWIDGET_DEBUG_VISUALIZE_TRACKINGITEM
-	QWidget * trackingWidget = itemWidgets.value(trackingItem.index);
+		QWidget* trackingWidget = itemWidgets.value(trackingItem.index);
 		if (trackingWidget != 0)
 			trackingWidget->setStyleSheet(QString());
 #endif
 
-	if (rowInfos.isEmpty())
-	{
+		if (rowInfos.isEmpty()) {
 			trackingItemIndex = -1;
 			trackingItemOffset = 0;
-	}
-	else
-	{
+		} else {
 			updateTrackingPoint();
-		RowInfo const & row = rowInfos.at(rowAt(trackingPoint.y()));
+			RowInfo const& row = rowInfos.at(rowAt(trackingPoint.y()));
 			int colIndex = colAt(trackingPoint.x(), row);
 			trackingItemIndex = row.items.at(colIndex).index;
 
@@ -1783,12 +1627,11 @@ void ContentWidget::updateTrackingItem()
 #endif
 	}
 
-void ContentWidget::updateTrackingPoint()
-{
+	void ContentWidget::updateTrackingPoint() {
 		trackingPoint.setX(visibleRect.x() + (visibleRect.width() * itemTrackingX * 100 / (100 * 100)));
 		trackingPoint.setY(visibleRect.y() + (visibleRect.height() * itemTrackingY * 100 / (100 * 100)));
 #if CONTENTWIDGET_DEBUG_VISUALIZE_TRACKINGPOINT
-	static QFrame * w = 0;
+		static QFrame* w = 0;
 		delete w;
 		w = new QFrame(this);
 		w->setStyleSheet("QFrame { background: red; }");
@@ -1798,13 +1641,11 @@ void ContentWidget::updateTrackingPoint()
 	}
 
 
-bool operator==(const ContentWidget::ItemInfo & lhs, const ContentWidget::ItemInfo & rhs)
-{
-	return lhs.index == rhs.index;	//Probably not technically correct, but enugh for now.
+	bool operator==(const ContentWidget::ItemInfo& lhs, const ContentWidget::ItemInfo& rhs) {
+		return lhs.index == rhs.index; //Probably not technically correct, but enugh for now.
 	}
 
-bool operator==(const ContentWidget::RowInfo & lhs, const ContentWidget::RowInfo & rhs)
-{
+	bool operator==(const ContentWidget::RowInfo& lhs, const ContentWidget::RowInfo& rhs) {
 		return lhs.y == rhs.y && lhs.items == rhs.items;
 	}
 
